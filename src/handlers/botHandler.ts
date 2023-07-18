@@ -39,12 +39,19 @@ export default class Bot {
             .setTimestamp();
     }
 
-    public static createButton = (customID: string, label: string, style: ButtonStyle, emoji: string) => {
+    public static createButton = (customID: string, label: string, style: ButtonStyle, emoji?: string) => {
         return new ButtonBuilder()
             .setCustomId(customID)
             .setLabel(label)
             .setStyle(style)
             .setEmoji(emoji)
+    }
+    
+    public static createLinkButton = (label: string, style: ButtonStyle, url: string) => {
+        return new ButtonBuilder()
+            .setLabel(label)
+            .setStyle(style)
+            .setURL(url)
     }
 
     public static currentDateMillisecondsToUUID(): string {

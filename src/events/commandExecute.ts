@@ -1,7 +1,7 @@
 import {CommandInteraction} from 'discord.js';
 import Bot from '../handlers/botHandler';
 import dotenv from 'dotenv';
-import lang from '../lang/cs.json';
+import lang from '../lang/en.json';
 
 dotenv.config();
 const config = process.env;

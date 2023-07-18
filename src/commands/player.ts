@@ -1,9 +1,10 @@
-import {SlashCommandBuilder, CommandInteraction, SlashCommandStringOption, EmbedBuilder, RestOrArray, APIEmbedField,} from 'discord.js';
+import {SlashCommandBuilder, CommandInteraction, EmbedBuilder, RestOrArray, APIEmbedField, ButtonBuilder, ActionRowBuilder, ButtonStyle, SlashCommandIntegerOption,} from 'discord.js';
 import Instance from '../handlers/appHandler';
 import lang from '../lang/en.json';
 import axios from 'axios';
+import Bot from '../handlers/botHandler';
 
-const playerOptions: SlashCommandStringOption = new SlashCommandStringOption()
+const playerOptions: SlashCommandIntegerOption = new SlashCommandIntegerOption()
     .setName('id')
     .setNameLocalizations({
         'cs': 'id'
@@ -20,26 +21,29 @@ module.exports = {
         .setNameLocalizations({
             'cs': 'hrac'
         })
-        .setDescription('Find a player by their steamID.')
+        .setDescription('Find a player by their steamID or ETF2L ID.')
         .setDescriptionLocalizations({
-            'cs': 'Najdi hráče pomocí jejich steamID.'
+            'cs': 'Najdi hráče pomocí jejich steamID nebo ETF2L ID.'
         })
-        .addStringOption(playerOptions),
+        .addIntegerOption(playerOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
         const instance = new Instance();
-        const id = interaction.options.data.find(item => item.name === 'id').value.toString();
+        const id = interaction.options.data.find(item => item.name === 'id').value;
         const fields: RestOrArray<APIEmbedField> = [];
+        let steam_id = "";
         try {
-            const response = await axios.get(`https://api-v2.etf2l.org/player/${id}`);
+            const playerdata = await axios.get(`https://api-v2.etf2l.org/player/${id}`);
+
+            steam_id = playerdata.data.player.steam.id64;
 
             const teamsNameArray = [];
             const teamsArray = [];
-            response.data.player.teams.forEach(team => {
+            playerdata.data.player.teams.forEach(team => {
                 teamsNameArray.push(team.name);
             });
             const teamsURLArray = [];
-            response.data.player.teams.forEach(team => {
+            playerdata.data.player.teams.forEach(team => {
                 teamsURLArray.push(team.id);
             });
             teamsNameArray.forEach((team, index) => {
@@ -49,7 +53,7 @@ module.exports = {
             const modifiedTeams = modifiedTeamsArray.join(', ');
 
             const classesArray = [];
-            response.data.player.classes.forEach(className => {
+            playerdata.data.player.classes.forEach(className => {
                 classesArray.push(className);
             });
             const modifiedClassesArray = classesArray.map((item) => item.replace(/"/g, ''))
@@ -57,8 +61,8 @@ module.exports = {
 
             const breaker: APIEmbedField = {inline: true, name: "\u200B", value: "\u200B"};
 
-            const name: APIEmbedField = {inline: true, name: lang['Name'], value: response.data.player.name};
-            const country: APIEmbedField = {inline: true, name: lang['Country'], value: response.data.player.country};
+            const name: APIEmbedField = {inline: true, name: lang['Name'], value: playerdata.data.player.name};
+            const country: APIEmbedField = {inline: true, name: lang['Country'], value: playerdata.data.player.country};
             const teams: APIEmbedField = {inline: true, name: lang['Teams'], value: `${modifiedTeams}`};
             const classes: APIEmbedField = {inline: true, name: lang['Classes'], value: `${modifiedClasses}`};
             fields.push(name);
@@ -67,20 +71,28 @@ module.exports = {
             fields.push(teams);
             fields.push(classes);
             fields.push(breaker);
+
         } catch (err) {
             if(err.response.status === 500) {
                 const field: APIEmbedField = {inline:false, name: lang['404 Not found'], value: lang['No player has been found.']};
                 fields.push(field);
             }
         }
+
+        const Row = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
+                Bot.createLinkButton(lang['ETF2L Profile'], ButtonStyle.Link, `https://etf2l.org/forum/user/${id}`)
+            )
+            .addComponents(
+                Bot.createLinkButton(lang['Steam Profile'], ButtonStyle.Link, `http://steamcommunity.com/profiles/${steam_id}`)
+            );
         
         const embed = new EmbedBuilder()
             .setTitle(lang['Player lookup'])
-            .setDescription(lang['Player info:'])
             .addFields(fields)
             .setFooter({text: `${(await instance.getInstance()).footer}`})
             .setColor(0x3399ff)
             .setTimestamp();
-        await interaction.editReply({embeds: [embed]});
+        await interaction.editReply({embeds: [embed], components: [Row]});
     }
 }

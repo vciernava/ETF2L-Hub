@@ -8,7 +8,6 @@
     "Oh no...": "Oh no...",
     "There has been an error during processing the request.": "There has been an error during processing the request.",
     "Configuring your server settings.": "Configuring your server settings.",
-    "'s roles have been updated.": "'s roles have been updated.",
     "Oh no! Seems like one of the default roles does not exist.": "Oh no! Seems like one of the default roles does not exist.",
     "Server is ready to use.": "Server is ready to use.",
     "The new configuration has been successfully applied.": "The new configuration has been successfully applied.",
@@ -31,5 +30,10 @@
     "Country": "Country",
     "Teams": "Teams",
     "Classes": "Classes",
-    "Creating user count channel.": "Creating user count channel."
+    "Type": "Type",
+    "Skill": "Skill",
+    "ETF2L Profile": "ETF2L Profile",
+    "Steam Profile": "Steam Profile",
+    "Recruitment lookup": "Recruitment lookup",
+    "View Recruitment": "View Recruitment"
 }

@@ -23,6 +23,9 @@ module.exports = {
             await rest.put(Routes.applicationGuildCommands(bot.user.id, config.GUILD_ID), {
                 body: Commands.commands
             });
+            await rest.put(Routes.applicationGuildCommands(bot.user.id, "1116610823054430271"), {
+                body: Commands.commands
+            });
             console.info('All commands have been registered (locally)');
 
             bot.user.setStatus('idle');
