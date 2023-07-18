@@ -10,14 +10,14 @@ const countryOptions: SlashCommandStringOption = new SlashCommandStringOption()
     .setDescription('Sort by country')
     .setRequired(false)
     .addChoices(
-        { name: 'Czech Republic', value: "CzechRepublic" },
-        { name: 'Poland', value: "Poland" },
-        { name: 'Sweden', value: "Sweden" },
-        { name: 'Germany', value: "Germany" },
-        { name: 'France', value: "France" },
-        { name: 'Russia', value: "Russia" },
-        { name: 'European', value: "European" },
-        { name: 'International', value: "International" },
+        { name: 'Czech Republic', value: "czechrepublic" },
+        { name: 'Poland', value: "poland" },
+        { name: 'Sweden', value: "sweden" },
+        { name: 'Germany', value: "germany" },
+        { name: 'France', value: "france" },
+        { name: 'Russia', value: "russia" },
+        { name: 'European', value: "european" },
+        { name: 'International', value: "international" },
     )
 const typeOptions: SlashCommandStringOption = new SlashCommandStringOption()
 .setName('type')
@@ -27,17 +27,17 @@ const typeOptions: SlashCommandStringOption = new SlashCommandStringOption()
     { name: 'Highlander', value: "Highlander" },
     { name: '6v6', value: "6v6" },
 )
-const skillOptions: SlashCommandStringOption = new SlashCommandStringOption()
-.setName('skill')
-.setDescription('Sort by skill')
-.setRequired(false)
-.addChoices(
-    { name: 'Open', value: "Open" },
-    { name: 'Low', value: "Low" },
-    { name: 'Mid', value: "Mid" },
-    { name: 'High', value: "High" },
-    { name: 'Prem', value: "Prem" },
-)
+// const skillOptions: SlashCommandStringOption = new SlashCommandStringOption()
+// .setName('skill')
+// .setDescription('Sort by skill')
+// .setRequired(false)
+// .addChoices(
+//     { name: 'Open', value: "Open" },
+//     { name: 'Low', value: "Low" },
+//     { name: 'Mid', value: "Mid" },
+//     { name: 'High', value: "High" },
+//     { name: 'Prem', value: "Prem" },
+// )
 const classOptions: SlashCommandStringOption = new SlashCommandStringOption()
 .setName('class')
 .setDescription('Sort by class')
@@ -85,7 +85,6 @@ module.exports = {
         .addIntegerOption(limitOptions)
         .addStringOption(typeOptions)
         .addStringOption(countryOptions)
-        .addStringOption(skillOptions)
         .addStringOption(classOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
@@ -93,14 +92,14 @@ module.exports = {
         const country = interaction.options.data.find(item => item.name === 'country')?.value ?? '';
         const type = interaction.options.data.find(item => item.name === 'type')?.value ?? '';
         const classp = interaction.options.data.find(item => item.name === 'class')?.value ?? '';
-        const skill = interaction.options.data.find(item => item.name === 'skill')?.value ?? '';
+        // const skill = interaction.options.data.find(item => item.name === 'skill')?.value ?? '';
         const limit = interaction.options.data.find(item => item.name === 'limit')?.value ?? 5;
 
         
-        const recuritmentdata = await axios.get(`https://api-v2.etf2l.org/recruitment/players?country=${country}&type=${type}&skill=${skill}&class=${classp}`);
+        const recuritmentdata = await axios.get(`https://api.etf2l.org/recruitment/players/1?country=${country}&type=${type}&class=${classp}`);
         await interaction.editReply({content: "Fetching..."});
 
-        const recruitmentData = recuritmentdata.data.recruitment.data;
+        const recruitmentData = recuritmentdata.data.recruitment;
 
         for (const [index, recruitment] of recruitmentData.entries()) {
             if(index+1 > limit) {

@@ -33,7 +33,7 @@ module.exports = {
         const fields: RestOrArray<APIEmbedField> = [];
         let steam_id = "";
         try {
-            const playerdata = await axios.get(`https://api-v2.etf2l.org/player/${id}`);
+            const playerdata = await axios.get(`https://api.etf2l.org/player/${id}`);
 
             steam_id = playerdata.data.player.steam.id64;
 
