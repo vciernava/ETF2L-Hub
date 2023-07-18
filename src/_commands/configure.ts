@@ -13,7 +13,7 @@ import {
 import dotenv from 'dotenv';
 import Bot from '../handlers/botHandler';
 import _Instance from '../handlers/appHandler';
-import lang from '../lang/cs.json';
+import lang from '../lang/en.json';
 import {db} from '../handlers/databaseHandler';
 
 dotenv.config();

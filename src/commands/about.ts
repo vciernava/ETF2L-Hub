@@ -1,6 +1,6 @@
 import {SlashCommandBuilder, CommandInteraction} from 'discord.js';
 import Instance from '../handlers/appHandler';
-import lang from '../lang/cs.json';
+import lang from '../lang/en.json';
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,8 +23,8 @@ module.exports = {
                     name: (await instance.getInstance()).author,
                     icon_url: (await instance.getInstance()).authorIcon
                 },
-                title: lang['Hello this is Quinto Bot!'],
-                description: 'Utility discord bot made for community and personal servers. \n\n*What can Quinto do?* \nAdvance server configuration, Event logs, Announcements, Ticket system, Server administration, Role selection, Minecraft to Discord integration (Plugin required) and more to come...',
+                title: lang['Hello this is'],
+                description: lang['About_Bot'],
                 fields: [
                     {
                         name: lang['🏁 Version'],

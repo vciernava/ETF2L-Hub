@@ -8,7 +8,7 @@ import {
 } from 'discord.js';
 import Commands from '../handlers/commandHandler';
 import Instance from '../handlers/appHandler';
-import lang from '../lang/cs.json';
+import lang from '../lang/en.json';
 
 const paginationOption: SlashCommandNumberOption = new SlashCommandNumberOption()
     .setName('page')
