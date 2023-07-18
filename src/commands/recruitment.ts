@@ -46,7 +46,7 @@ const classOptions: SlashCommandStringOption = new SlashCommandStringOption()
     { name: 'Scout', value: "Scout" },
     { name: 'Soldier', value: "Soldier" },
     { name: 'Pyro', value: "Pyro" },
-    { name: 'Demo', value: "Demo" },
+    { name: 'Demoman', value: "Demoman" },
     { name: 'Heavy', value: "Heavy" },
     { name: 'Engineer', value: "Engineer" },
     { name: 'Medic', value: "Medic" },
