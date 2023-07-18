@@ -119,12 +119,12 @@ module.exports = {
             const modifiedClassesArray = classesArray.map((item) => item.replace(/"/g, ''))
             const modifiedClasses = modifiedClassesArray.join(', ');
 
-            const name: APIEmbedField = { inline: true, name: lang['Name'], value: recruitment.name };
-            const country: APIEmbedField = { inline: true, name: lang['Name'], value: playerdata.data.player.country };
+            const forumId: APIEmbedField = {inline: true, name: lang['ETF2L ID'], value: `${id}`};
+            const country: APIEmbedField = { inline: true, name: lang['Country'], value: playerdata.data.player.country };
             const type: APIEmbedField = { inline: true, name: lang['Type'], value: recruitment.type };
             const classes: APIEmbedField = {inline: true, name: lang['Classes'], value: `${modifiedClasses}`};
             const skill: APIEmbedField = { inline: true, name: lang['Skill'], value: recruitment.skill };
-            fields.push(name);
+            fields.push(forumId);
             fields.push(country);
             fields.push(type);
             fields.push(classes);
@@ -142,10 +142,11 @@ module.exports = {
                 );
     
             const embed = new EmbedBuilder()
-                .setTitle(`${lang['Recruitment lookup']} ${index+1}/${limit}`)
+                .setTitle(`${recruitment.name} (${index+1}/${limit})`)
                 .addFields(fields)
                 .setFooter({ text: `${(await instance.getInstance()).footer}` })
                 .setColor(0x3399ff)
+                .setImage(recruitment.steam.avatar)
                 .setTimestamp();
 
             await wait(2000);
