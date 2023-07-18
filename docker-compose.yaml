@@ -1,0 +1,18 @@
+version: "3"
+networks:
+  api_server_default:
+    external: true
+services:
+  api:
+    image: Quinto-bot
+    networks:
+      - api_server_default
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    environment:
+      - ENV_NAME=dev
+      - TOKEN=null
+    ports:
+      - 3333
+        
