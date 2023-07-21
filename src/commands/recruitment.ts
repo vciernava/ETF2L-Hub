@@ -1,7 +1,6 @@
 import {SlashCommandBuilder, CommandInteraction, SlashCommandStringOption, APIEmbedField, RestOrArray, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandIntegerOption} from 'discord.js';
 import Instance from '../handlers/appHandler';
 import axios from 'axios';
-import lang from '../lang/en.json';
 import Bot from '../handlers/botHandler';
 const wait = require('node:timers/promises').setTimeout;
 
@@ -27,17 +26,17 @@ const typeOptions: SlashCommandStringOption = new SlashCommandStringOption()
     { name: 'Highlander', value: "Highlander" },
     { name: '6v6', value: "6v6" },
 )
-// const skillOptions: SlashCommandStringOption = new SlashCommandStringOption()
-// .setName('skill')
-// .setDescription('Sort by skill')
-// .setRequired(false)
-// .addChoices(
-//     { name: 'Open', value: "Open" },
-//     { name: 'Low', value: "Low" },
-//     { name: 'Mid', value: "Mid" },
-//     { name: 'High', value: "High" },
-//     { name: 'Prem', value: "Prem" },
-// )
+const skillOptions: SlashCommandStringOption = new SlashCommandStringOption()
+.setName('skill')
+.setDescription('Sort by skill')
+.setRequired(false)
+.addChoices(
+    { name: 'Open', value: "Open" },
+    { name: 'Low', value: "Low" },
+    { name: 'Mid', value: "Mid" },
+    { name: 'High', value: "High" },
+    { name: 'Prem', value: "Prem" },
+)
 const classOptions: SlashCommandStringOption = new SlashCommandStringOption()
 .setName('class')
 .setDescription('Sort by class')
@@ -85,21 +84,23 @@ module.exports = {
         .addIntegerOption(limitOptions)
         .addStringOption(typeOptions)
         .addStringOption(countryOptions)
-        .addStringOption(classOptions),
+        .addStringOption(classOptions)
+        .addStringOption(skillOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
+        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
         const country = interaction.options.data.find(item => item.name === 'country')?.value ?? '';
         const type = interaction.options.data.find(item => item.name === 'type')?.value ?? '';
         const classp = interaction.options.data.find(item => item.name === 'class')?.value ?? '';
-        // const skill = interaction.options.data.find(item => item.name === 'skill')?.value ?? '';
+        const skill = interaction.options.data.find(item => item.name === 'skill')?.value ?? '';
         const limit = interaction.options.data.find(item => item.name === 'limit')?.value ?? 5;
 
         
-        const recuritmentdata = await axios.get(`https://api.etf2l.org/recruitment/players/1?country=${country}&type=${type}&class=${classp}`);
+        const recuritmentdata = await axios.get(`https://api-v2.etf2l.org/recruitment/players?country=${country}&type=${type}&class=${classp}&skill=${skill}`);
         await interaction.editReply({content: "Fetching..."});
 
-        const recruitmentData = recuritmentdata.data.recruitment;
+        const recruitmentData = recuritmentdata.data.recruitment.data;
 
         for (const [index, recruitment] of recruitmentData.entries()) {
             if(index+1 > limit) {
@@ -131,9 +132,9 @@ module.exports = {
             fields.push(skill);
     
             const Row = new ActionRowBuilder<ButtonBuilder>()
-                .addComponents(
-                    Bot.createLinkButton(lang['View Recruitment'], ButtonStyle.Link, recruitment.urls.recruitment)
-                )
+                // .addComponents(
+                //     Bot.createLinkButton(lang['View Recruitment'], ButtonStyle.Link, recruitment.urls.recruitment)
+                // )
                 .addComponents(
                     Bot.createLinkButton(lang['ETF2L Profile'], ButtonStyle.Link, `https://etf2l.org/forum/user/${id}`)
                 )

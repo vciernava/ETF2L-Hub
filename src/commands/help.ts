@@ -8,7 +8,6 @@ import {
 } from 'discord.js';
 import Commands from '../handlers/commandHandler';
 import Instance from '../handlers/appHandler';
-import lang from '../lang/en.json';
 
 const paginationOption: SlashCommandNumberOption = new SlashCommandNumberOption()
     .setName('page')
@@ -34,6 +33,8 @@ module.exports = {
         .addNumberOption(paginationOption),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
+        const lang = await import(`../lang/${interaction.locale}.json`)
+
         const instance = new Instance();
         const commands = Commands.commands;
         const numberOfItems = commands.length;
@@ -67,7 +68,7 @@ module.exports = {
             .setTitle(lang['Need support? Message me.'])
             .setDescription(lang['All available commands:'])
             .addFields(fields)
-            .setFooter({text: `${lang.Page} ${currentPage}/${countPages} - ${(await instance.getInstance()).footer}`})
+            .setFooter({text: `${lang['Page']} ${currentPage}/${countPages} - ${(await instance.getInstance()).footer}`})
             .setColor(0x3399ff)
             .setTimestamp();
         await interaction.editReply({embeds: [embed]});

@@ -1,6 +1,5 @@
 import {SlashCommandBuilder, CommandInteraction, EmbedBuilder, RestOrArray, APIEmbedField, ButtonBuilder, ActionRowBuilder, ButtonStyle, SlashCommandStringOption,} from 'discord.js';
 import Instance from '../handlers/appHandler';
-import lang from '../lang/en.json';
 import axios from 'axios';
 import Bot from '../handlers/botHandler';
 
@@ -28,13 +27,14 @@ module.exports = {
         .addStringOption(playerOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
+        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
         const id = interaction.options.data.find(item => item.name === 'id').value.toString();
         const fields: RestOrArray<APIEmbedField> = [];
         let steam_id = "";
         let etfid = "";
         try {
-            const playerdata = await axios.get(`https://api.etf2l.org/player/${id}`);
+            const playerdata = await axios.get(`https://api-v2.etf2l.org/player/${id}`);
 
             etfid = playerdata.data.player.id;
             steam_id = playerdata.data.player.steam.id64;

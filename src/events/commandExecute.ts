@@ -1,7 +1,6 @@
 import {CommandInteraction} from 'discord.js';
 import Bot from '../handlers/botHandler';
 import dotenv from 'dotenv';
-import lang from '../lang/en.json';
 
 dotenv.config();
 const config = process.env;
@@ -9,6 +8,7 @@ const config = process.env;
 module.exports = {
     name: 'interactionCreate',
     execute: async (interaction: CommandInteraction) => {
+        const lang = await import(`../lang/${interaction.locale}.json`)
         const command = Bot.client.commands.get(interaction.commandName);
 
         if (!interaction.isCommand() || !command) return;

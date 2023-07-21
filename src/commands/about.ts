@@ -1,6 +1,5 @@
 import {SlashCommandBuilder, CommandInteraction} from 'discord.js';
 import Instance from '../handlers/appHandler';
-import lang from '../lang/en.json';
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,6 +13,7 @@ module.exports = {
         }),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
+        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
 
         await interaction.editReply({
