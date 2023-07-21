@@ -13,8 +13,8 @@ module.exports = {
         }),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
-        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
+        const lang = instance.getLangFiles(interaction.locale);
 
         await interaction.editReply({
             embeds: [{

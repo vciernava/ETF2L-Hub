@@ -1,5 +1,7 @@
 import {name, version, author} from '../../package.json';
 import {getLastCommit, Commit} from 'git-last-commit';
+import fs from 'fs';
+import path from 'path';
 
 export default class Instance {
     constructor() {
@@ -23,5 +25,28 @@ export default class Instance {
                 return res(commit);
             });
         });
+    }
+
+    
+    readLangFile(locale: string): JSON {
+        const langFilePath = path.join(__dirname, `../lang/${locale}.json`);
+        const fallbackFilePath = path.join(__dirname, '../lang/en-US.json');
+
+        try {
+            return JSON.parse(fs.readFileSync(langFilePath, 'utf8'));
+        } catch (err) {
+            console.error(`Error loading language file for locale "${locale}":`, err);
+            try {
+                return JSON.parse(fs.readFileSync(fallbackFilePath, 'utf8'));
+            } catch (error) {
+                console.error('Error loading fallback language file:', error);
+                return JSON.parse("{}");
+            }
+        }
+    }
+    
+    public getLangFiles(locale: string) {
+        const lang = this.readLangFile(locale);
+        return lang;
     }
 }

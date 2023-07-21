@@ -27,8 +27,9 @@ module.exports = {
         .addStringOption(playerOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
-        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
+        const lang = instance.getLangFiles(interaction.locale);
+
         const id = interaction.options.data.find(item => item.name === 'id').value.toString();
         const fields: RestOrArray<APIEmbedField> = [];
         let steam_id = "";

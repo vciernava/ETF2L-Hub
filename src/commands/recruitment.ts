@@ -88,8 +88,9 @@ module.exports = {
         .addStringOption(skillOptions),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
-        const lang = await import(`../lang/${interaction.locale}.json`)
         const instance = new Instance();
+        const lang = await instance.getLangFiles(interaction.locale);
+
         const country = interaction.options.data.find(item => item.name === 'country')?.value ?? '';
         const type = interaction.options.data.find(item => item.name === 'type')?.value ?? '';
         const classp = interaction.options.data.find(item => item.name === 'class')?.value ?? '';

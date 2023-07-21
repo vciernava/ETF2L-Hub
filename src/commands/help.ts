@@ -33,9 +33,8 @@ module.exports = {
         .addNumberOption(paginationOption),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {
-        const lang = await import(`../lang/${interaction.locale}.json`)
-
         const instance = new Instance();
+        const lang = instance.getLangFiles(interaction.locale);
         const commands = Commands.commands;
         const numberOfItems = commands.length;
         const showPerPage = 9;
