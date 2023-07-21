@@ -10,9 +10,9 @@ export default class Instance {
             app: name,
             version: version,
             author: author,
-            authorIcon: 'https://avatars.githubusercontent.com/u/57325593?v=4',
+            authorIcon: 'https://cdn.discordapp.com/avatars/423828547447160833/12e18a848b28ff25a993d9e629362d01.png',
             gitCommit: await this.getGitCommit(),
-            footer: 'Developed by Viktor Čierňava.'
+            footer: 'Developed by rotzZik.'
         }
     }
 
