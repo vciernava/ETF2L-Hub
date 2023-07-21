@@ -18,7 +18,7 @@ export default class Instance {
         }
     }
 
-    public getGitCommit() {
+    public getGitCommit(): Promise<Commit> {
         return new Promise<Commit>((res, rej) => {
             getLastCommit((err: Error, commit: Commit) => {
                 if (err) return rej(err);
