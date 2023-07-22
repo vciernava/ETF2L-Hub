@@ -1,0 +1,3 @@
+# TF2 HUB bot version beta1.17
+
+A discord bot made to gather data from ETF2L. Find a player for your team, lookup player profiles and more...
