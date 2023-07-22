@@ -5,11 +5,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('about')
         .setNameLocalizations({
-            'cs': 'omne'
+            'cs': 'o-mně',
+            'pl': 'o-mnie'
         })
         .setDescription('Display of basic information about bot.')
         .setDescriptionLocalizations({
-            'cs': 'Zobrazení základních informací o botovi.'
+            'cs': 'Zobrazení základních informací o botovi.',
+            'pl': 'Wyświetlenie podstawowych informacji o bocie.'
         }),
     ephemeral: true,
     async execute(interaction: CommandInteraction) {

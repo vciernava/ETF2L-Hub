@@ -18,11 +18,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('player')
         .setNameLocalizations({
-            'cs': 'hrac'
+            'cs': 'hráč',
+            'pl': 'gracz'
         })
         .setDescription('Find a player by their steamID or ETF2L ID.')
         .setDescriptionLocalizations({
-            'cs': 'Najdi hráče pomocí jejich steamID nebo ETF2L ID.'
+            'cs': 'Najdi hráče pomocí jejich steamID nebo ETF2L ID.',
+            'pl': 'Znajdź gracza według jego steamID lub ETF2L ID.'
         })
         .addStringOption(playerOptions),
     ephemeral: true,

@@ -24,11 +24,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
         .setNameLocalizations({
-            'cs': 'pomoc'
+            'cs': 'pomoc',
+            'pl': 'pomoc'
         })
         .setDescription('Display of all available commands.')
         .setDescriptionLocalizations({
-            'cs': 'Zobrazení všech dostupných příkazů.'
+            'cs': 'Zobrazení všech dostupných příkazů.',
+            'pl': 'Wyświetlanie wszystkich dostępnych poleceń.'
         })
         .addNumberOption(paginationOption),
     ephemeral: true,

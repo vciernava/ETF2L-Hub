@@ -75,11 +75,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('recruitment')
         .setNameLocalizations({
-            'cs': 'nabor'
+            'cs': 'nábor',
+            'pl': 'rekrutacja'
         })
         .setDescription('Easily recruit players into your team.')
         .setDescriptionLocalizations({
-            'cs': 'Jednoduše naber hráče do svého týmu.'
+            'cs': 'Jednoduše naber hráče do svého týmu.',
+            'pl': 'Z łatwością rekrutuj graczy do swojego zespołu.'
         })
         .addIntegerOption(limitOptions)
         .addStringOption(typeOptions)
