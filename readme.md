@@ -10,10 +10,10 @@ The multi-language support is decided automatically, the commands will be in the
 - Czech
 - Polish
 
-# Self-hosting
+## Self-hosting
 I am sorry, but the self-hosting is currently not available until the public release will be made.
 
-# Contributors
+## Contributors
 I would like to give a big thanks to every contributor that contributed even a small part of their spare time to this project!
 
 - Leo - Made a great contribution to translations for Polish language
