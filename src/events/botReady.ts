@@ -32,7 +32,7 @@ module.exports = {
             });
             console.info('All commands have been registered');
 
-            bot.user.setStatus('idle');
+            bot.user.setStatus('online');
             Bot.setActivity(`${bot.guilds.cache.size} servers`, ActivityType.Listening);
 
         } catch (error) {
