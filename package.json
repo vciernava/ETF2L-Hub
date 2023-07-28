@@ -1,6 +1,6 @@
 {
   "name": "quinto-bot",
-  "version": "beta 1.1.7",
+  "version": "1.0",
   "description": "Utility discord bot made for community and personal servers.",
   "main": "dist/src/app.js",
   "scripts": {

@@ -33,7 +33,7 @@ module.exports = {
             console.info('All commands have been registered');
 
             bot.user.setStatus('idle');
-            Bot.setActivity(`Ver. ${(await instance.getInstance()).version}`, ActivityType.Listening);
+            Bot.setActivity(`${bot.guilds.cache.size} servers`, ActivityType.Listening);
 
         } catch (error) {
             console.error(error);
