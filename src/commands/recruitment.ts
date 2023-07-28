@@ -135,9 +135,9 @@ module.exports = {
             fields.push(skill);
     
             const Row = new ActionRowBuilder<ButtonBuilder>()
-                // .addComponents(
-                //     Bot.createLinkButton(lang['View Recruitment'], ButtonStyle.Link, recruitment.urls.recruitment)
-                // )
+                .addComponents(
+                    Bot.createLinkButton(lang['View Recruitment'], ButtonStyle.Link, recruitment.urls.recruitment)
+                )
                 .addComponents(
                     Bot.createLinkButton(lang['ETF2L Profile'], ButtonStyle.Link, `https://etf2l.org/forum/user/${id}`)
                 )

@@ -12,7 +12,7 @@ export default class Instance {
             app: name,
             version: version,
             author: author,
-            authorIcon: 'https://cdn.discordapp.com/avatars/423828547447160833/12e18a848b28ff25a993d9e629362d01.png',
+            authorIcon: 'https://cdn.discordapp.com/avatars/423828547447160833/a6b3276c7ae83ee623f6038c62db492b.png',
             gitCommit: await this.getGitCommit(),
             footer: 'Developed by rotzZik.'
         }

@@ -20,13 +20,17 @@ module.exports = {
         }).setToken(config.TOKEN);
 
         try {
-            await rest.put(Routes.applicationGuildCommands(bot.user.id, config.GUILD_ID), {
+            // await rest.put(Routes.applicationGuildCommands(bot.user.id, config.GUILD_ID), {
+            //     body: Commands.commands
+            // });
+            // await rest.put(Routes.applicationGuildCommands(bot.user.id, "1116610823054430271"), {
+            //     body: Commands.commands
+            // });
+            // console.info('All commands have been registered (locally)');
+            await rest.put(Routes.applicationCommands(bot.user.id), {
                 body: Commands.commands
             });
-            await rest.put(Routes.applicationGuildCommands(bot.user.id, "1116610823054430271"), {
-                body: Commands.commands
-            });
-            console.info('All commands have been registered (locally)');
+            console.info('All commands have been registered');
 
             bot.user.setStatus('idle');
             Bot.setActivity(`Ver. ${(await instance.getInstance()).version}`, ActivityType.Listening);
